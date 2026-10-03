@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import DetailView
 from .models import Blog
 
 
@@ -23,18 +24,11 @@ class BlogListView(View):
         elif sort == "oldest":
             blogs = blogs.order_by("created_at")
 
-        return render(
-            request,
-            "blog/blog_list.html",
-            {"blogs": blogs}
-        )
+        return render(request, "blog/blog_list.html", {"blogs": blogs})
 
 
-def blog_detail(request, id):
-    blog = Blog.objects.get(id=id)
-
-    return render(
-        request,
-        "blog/blog_detail.html",
-        {"blog": blog}
-    )
+class BlogDetailView(DetailView):
+    model = Blog
+    template_name = "blog/blog_detail.html"
+    context_object_name = "blog"
+    pk_url_kwarg = "id"
