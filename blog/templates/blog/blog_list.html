@@ -1,29 +1,42 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
     <title>My Blog</title>
 
-<style>
-    body {
-        text-align: left;
-    }
+    <style>
 
-    .blog img {
-        width: 250px;
-        height: 150px;
-        object-fit: cover;
-        display: block;
-    }
+        body {
+            text-align: left;
+        }
 
-    .blog a {
-        display: block;
-    }
-</style>
+        .blog {
+            margin-bottom: 20px;
+        }
+
+        .blog img {
+            width: 250px;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .blog a {
+            display: block;
+            margin-bottom: 25px;
+        }
+
+    </style>
 
 </head>
+
 <body>
 
     <h1>My Blog</h1>
+
+    <!-- Search and Sorting -->
 
     <form method="GET">
 
@@ -55,28 +68,51 @@
     </form>
 
 
-{% for blog in blogs %}
+    <!-- Blog List -->
 
-    <div class="blog">
+    {% for blog in blogs %}
 
-        {% if blog.image %}
-            <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
-        {% endif %}
+        <div class="blog">
 
-        <h2>{{ blog.title }}</h2>
+            {% if blog.image %}
 
-        <p>{{ blog.description|truncatewords:10 }}</p>
+                <img
+                    src="{{ blog.image.url }}"
+                    alt="{{ blog.title }}"
+                >
 
-        <p>{{ blog.created_at|date:"F d, Y" }}</p>
+            {% endif %}
 
-        <a href="{% url 'blog_detail' blog.id %}">
-            View Details
-        </a>
+            <h2>{{ blog.title }}</h2>
 
-    </div>
+            <p>
+                {{ blog.description|truncatewords:10 }}
+            </p>
 
-{% endfor %}
+            <p>
+                {{ blog.created_at|date:"F d, Y" }}
+            </p>
+
+            <a href="{% url 'blog_detail' blog.id %}">
+                View Details
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+
+    <!-- Logout -->
+
+    <form method="POST" action="{% url 'logout' %}">
+
+        {% csrf_token %}
+
+        <button type="submit">Logout</button>
+
+    </form>
 
 
 </body>
+
 </html>
