@@ -2,7 +2,7 @@
 
 A simple Blog Web Application built with Django.
 
-This project was created to practice Django fundamentals including Models, Migrations, Django Admin, Function-Based Views, Class-Based Views, URL Routing, Dynamic URLs, Templates, Django Template Language (DTL), Template Filters, Search Filtering, and Sorting.
+This project was created to practice Django fundamentals including Models, Migrations, Django Admin, Class-Based Views, URL Routing, Dynamic URLs, Templates, Django Template Language (DTL), Search, Sorting, Image Uploads, and Active/Inactive Blog Filtering.
 
 ---
 
@@ -10,20 +10,22 @@ This project was created to practice Django fundamentals including Models, Migra
 
 The project was developed with the following requirements:
 
-- Use a single model
+- Use a single Blog model
 - Model fields:
   - Title
   - Description
   - Created At
+  - Image
+  - Is Active
 - Create two pages:
   1. Blog List Page
   2. Blog Detail Page
-- Blog List Page should display all blogs with their titles
+- Blog List Page should display active blogs
 - Each blog should have a link to its detail page
 - Blog Detail Page should display the complete details of the selected blog
-- Add a search filter for blogs
-- Add a sorting filter for blogs
-- Learn and implement Class-Based Views (CBV)
+- Add search functionality
+- Add sorting functionality
+- Use Class-Based Views
 
 ---
 
@@ -31,35 +33,29 @@ The project was developed with the following requirements:
 
 - Single `Blog` model
 - Create and manage blogs using Django Admin
-- Display all blogs on the list page
-- Display blog titles and short descriptions
+- Blog title and description
+- Blog creation date
+- Blog image upload
+- Active/Inactive blog status
+- Only active blogs are displayed on the blog list page
 - Dynamic detail page for each blog
-- Display complete blog description
-- Display blog creation date
-- Back to Blogs navigation link
-- Support for HTML headings, bullet lists, and numbered lists in trusted blog content
 - Search blogs by title
 - Sort blogs by newest or oldest
-- Use search and sorting filters together
-- Class-Based View (CBV) for the blog list page
-
----
-
-## Technologies Used
-
-- Python
-- Django
-- SQLite
-- HTML
-- Django Template Language (DTL)
+- Search and sorting can be used together
+- Class-Based View for the blog list
+- Django Generic `DetailView` for the blog detail
+- Back to Blogs navigation link
+- Support for HTML content in trusted blog descriptions
 
 ---
 
 ## Search Filter
 
-The Blog List Page includes a search filter that allows users to search blogs by title.
+The blog list page includes a search filter.
 
-The search uses Django ORM's `icontains` lookup, which performs a case-insensitive partial match.
+Users can search for blogs by entering a keyword in the search field.
+
+The search uses Django ORM's `icontains` lookup to perform a case-insensitive title search.
 
 Example:
 

@@ -11,12 +11,10 @@ class BlogListView(View):
         search = request.GET.get("search")
         sort = request.GET.get("sort")
 
-        blogs = Blog.objects.all()
+        blogs = Blog.objects.filter(is_active=True)
 
         if search:
-            blogs = blogs.filter(
-                title__icontains=search
-            )
+            blogs = blogs.filter(title__icontains=search)
 
         if sort == "newest":
             blogs = blogs.order_by("-created_at")

@@ -2,6 +2,24 @@
 <html>
 <head>
     <title>My Blog</title>
+
+<style>
+    body {
+        text-align: left;
+    }
+
+    .blog img {
+        width: 250px;
+        height: 150px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .blog a {
+        display: block;
+    }
+</style>
+
 </head>
 <body>
 
@@ -37,7 +55,13 @@
     </form>
 
 
-    {% for blog in blogs %}
+{% for blog in blogs %}
+
+    <div class="blog">
+
+        {% if blog.image %}
+            <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+        {% endif %}
 
         <h2>{{ blog.title }}</h2>
 
@@ -49,7 +73,9 @@
             View Details
         </a>
 
-    {% endfor %}
+    </div>
+
+{% endfor %}
 
 
 </body>
