@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Blog, Like, Comment
 from .forms import CommentForm
@@ -29,39 +28,46 @@ class BlogListView(View):
 
 
 #Blog Details view
-class BlogDetailView(DetailView):
+class BlogDetailView(View):
 
-    model = Blog
-    template_name = "blog/blog_detail.html"
-    context_object_name = "blog"
-    pk_url_kwarg = "id"
+    def get(self, request, id):
 
-    def get_context_data(self, **kwargs):
+        blog = get_object_or_404(Blog, id=id)
 
-        context = super().get_context_data(**kwargs)
-
-        context["likes_count"] = Like.objects.filter(
-            blog=self.object
+        likes_count = Like.objects.filter(
+            blog=blog
         ).count()
 
-        if self.request.user.is_authenticated:
+        if request.user.is_authenticated:
 
-            context["user_has_liked"] = Like.objects.filter(
-                blog=self.object,
-                user=self.request.user
+            user_has_liked = Like.objects.filter(
+                blog=blog,
+                user=request.user
             ).exists()
 
         else:
 
-            context["user_has_liked"] = False
+            user_has_liked = False
 
-        context["comments"] = Comment.objects.filter(
-            blog=self.object
+        comments = Comment.objects.filter(
+            blog=blog
         ).order_by("-created_at")
 
-        context["comment_form"] = CommentForm()
+        comment_form = CommentForm()
 
-        return context
+        context = {
+            "blog": blog,
+            "likes_count": likes_count,
+            "user_has_liked": user_has_liked,
+            "comments": comments,
+            "comment_form": comment_form,
+        }
+
+        return render(
+            request,
+            "blog/blog_detail.html",
+            context
+        )
 
 
 #Like view
