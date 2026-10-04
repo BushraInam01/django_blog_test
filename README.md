@@ -2,7 +2,7 @@
 
 A simple Blog Web Application built with Django.
 
-This project was created to practice Django fundamentals including Models, Migrations, Django Admin, Class-Based Views, URL Routing, Dynamic URLs, Templates, Django Template Language (DTL), Search, Sorting, Image Uploads, Active/Inactive Blog Filtering, and User Authentication.
+This project was created to practice Django fundamentals including Models, Migrations, Django Admin, Class-Based Views, URL Routing, Dynamic URLs, Templates, Django Template Language (DTL), Search, Sorting, Image Uploads, Active/Inactive Blog Filtering, User Authentication, Like System, and Comment System.
 
 ---
 
@@ -30,6 +30,10 @@ The project was developed with the following requirements:
 - Implement user signup
 - Implement user login
 - Implement user logout
+- Add Like and Unlike functionality
+- Add Comment functionality
+- Only logged-in users can like blogs
+- Only logged-in users can comment on blogs
 
 ---
 
@@ -57,6 +61,13 @@ The project was developed with the following requirements:
 - Authentication using Class-Based Views
 - Login redirects users to the blog list
 - Logout redirects users to the login page
+- Like and Unlike functionality for blogs
+- Like count displayed on each blog detail page
+- Each logged-in user can like a blog only once
+- Comment functionality for blogs
+- Comments are linked with the logged-in user
+- Comment date and time are displayed
+- Only authenticated users can like and comment
 
 ---
 
@@ -70,53 +81,13 @@ The search uses Django ORM's `icontains` lookup to perform a case-insensitive ti
 
 Example:
 
+```text
 /blogs/?search=Python
 
----
-
-## Sorting Filter
-
-The blog list page includes sorting options:
-
-- Newest First
-- Oldest First
-
-The sorting is performed using Django ORM's `order_by()` method.
-
-Examples:
-
-/blogs/?sort=newest
-
-/blogs/?sort=oldest
 
 ---
 
-## Search and Sorting Together
-
-Search and sorting can be used together.
-
-Example:
-
-/blogs/?search=Django&sort=newest
-
-This filters blogs by the search keyword and then sorts the results.
-
----
-
-## Image Upload
-
-The Blog model uses Django's `ImageField` for blog images.
-
-```python
-image = models.ImageField(
-    upload_to="blogs/",
-    blank=True,
-    null=True
-)
-
----
-
-##Project Structure
+## Project Structure
 django_blog_test/
 │
 ├── accounts/
@@ -134,7 +105,9 @@ django_blog_test/
 │   │   └── blog/
 │   │       ├── blog_list.html
 │   │       └── blog_detail.html
+│   ├── forms.py
 │   ├── models.py
+│   ├── admin.py
 │   ├── urls.py
 │   └── views.py
 │
@@ -145,6 +118,3 @@ django_blog_test/
 ├── media/
 ├── manage.py
 └── README.md
-
-
-
