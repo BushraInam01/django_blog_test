@@ -51,7 +51,7 @@ The project was developed with the following requirements:
 - Sort blogs by newest or oldest
 - Search and sorting can be used together
 - Class-Based View for the blog list
-- Django Generic `DetailView` for the blog detail
+- Class-Based View for the blog detail
 - Back to Blogs navigation link
 - Support for HTML content in trusted blog descriptions
 - User signup
